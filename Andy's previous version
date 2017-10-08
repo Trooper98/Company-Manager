@@ -1,0 +1,239 @@
+package Try;
+
+import java.util.Scanner;
+import Try.Employee;
+import Try.Manager;
+import Try.Director;
+import Try.Intern;
+
+public class ReusaxCorp {
+    
+	private static final int REGISTER_EMPLOYEE = 1;
+	private static final int REMOVE_EMPLOYEE = 2;
+	private static final int PRINT_EMPLOYEE = 3; //retrieve
+	private static final int UPDATE_EMPLOYEE = 4; //update
+	//private static final int PAY_DEBT = 5;
+	private static final int QUIT = 6;
+	//private static final int EDIT_COUNTRY_INFORMATION = 7;
+
+	//Scanner input = new Scanner(System.in);
+	private Employee[] employees;
+	private int registeredEmployees;
+	private Manager[] managers;
+	private int registeredManagers;
+	private Scanner input;
+	
+	public ReusaxCorp() {
+		final int MAX_EMPLOYEES = 999;
+		this.employees = new Employee[MAX_EMPLOYEES];
+		this.registeredEmployees = 0;
+		this.managers = new Manager[MAX_EMPLOYEES];
+		this.registeredManagers = 0;
+		input = new Scanner(System.in);
+	}
+	
+	public static void main(String[] args) {
+		ReusaxCorp program = new ReusaxCorp();
+		program.run();
+	}
+    
+	private void printMenuOptions() {
+		System.out.println(" =================================================== ");
+		System.out.println(" === Reusax Corporate Employee Management System === ");
+		System.out.println(" ===                                             === ");
+		System.out.println(" ===             Choose an option below:         === ");
+		System.out.println(" ===            1. Register an employee.         === ");
+		System.out.println(" ===             2. Remove an employee.          === ");
+		System.out.println(" ===       3. Print an employee's information.   === ");
+		System.out.println(" ===       4. Update an employee's information.  === ");
+		System.out.println(" ===                    5.                       === ");
+		System.out.println(" ===                   6. QUIT                   === ");
+		System.out.println(" ===                    7.                       === ");
+		System.out.println(" =================================================== ");
+	}
+	
+	public Employee retrieveEmployee(String employeeID) {
+		for (int i = 0; i < this.employees.length; i++) {
+			
+			if(employees[i] != null && employees[i].getId().equals(employeeID)) {
+				return employees[i];
+			}
+		}
+		return null;
+	}
+	
+	public String readEmployeeID() {
+		System.out.print(" Type the ID of the employee: ");
+		String employeeID = input.nextLine();
+		return employeeID;
+	}
+
+//1
+    public Employee registerEmployee() {
+    	    System.out.print(" Please enter the employee's ID: ");
+		String id = input.nextLine();
+		Employee foundEmployee = retrieveEmployee(id);
+		
+		if (foundEmployee == null) {
+			System.out.print(" Please enter the employee's name: ");
+			String name = input.nextLine();
+		
+			System.out.print(" Please enter the employee's gross salary: ");
+			double grossSalary = input.nextDouble();
+		
+		Employee newEmployee = new Employee(id, name, grossSalary);
+		System.out.println();
+		System.out.println(newEmployee.toString());
+		return newEmployee;
+		}
+		
+		if (foundEmployee != null) {
+			System.out.println(" Warning! There is already an employee with the ID " + id + "!");
+		}
+		
+		return null;
+    }
+    
+//2  not done!!!!!	
+    public void removeEmployee() {
+    	    String employeeID = readEmployeeID();
+        Employee foundEmployee = retrieveEmployee(employeeID);
+        if (foundEmployee != null) {
+        	   foundEmployee = null;
+        	   System.out.println("Employee of ID " + employeeID + " removed.");
+        }
+        else {
+        	System.out.println("\n" + "An employee of ID " + employeeID + " is not registered in the system." + "\n");
+        }
+    }
+
+//3
+    public void printOneEmployee() {
+    	    String employeeID = readEmployeeID();
+        Employee foundEmployee = retrieveEmployee(employeeID);
+        
+        if (foundEmployee != null) {
+        	   System.out.println(foundEmployee.toString());
+        	   System.out.println();
+        	}
+        else { 
+        	System.out.println("\n" + "An employee of ID " + employeeID + " is not registered in the system." + "\n");
+        }
+    }
+  
+//4
+    public void updateEmployee() {
+    	    String employeeID = readEmployeeID();
+        Employee foundEmployee = retrieveEmployee(employeeID);
+        
+        if (foundEmployee != null) {
+			System.out.println(" Choose an option to change: ");
+			System.out.println("1. Update employee to manager");
+			System.out.println("2. Update employee to director");
+			System.out.print("3. Update employee to intern");
+			int option = 0;
+			final int MANAGER = 1;
+			final int DIRECTOR = 2;
+			final int INTERN = 3;
+					
+			option = input.nextInt();
+			input.nextLine();
+			
+			switch(option) {
+			case MANAGER:
+				foundEmployee = registerManager(foundEmployee);
+				//registerManager(Employee );
+				break;
+				
+			case DIRECTOR:
+				break;
+				
+			case INTERN:
+				break;
+			}
+			
+        }
+       
+    }
+    
+   public Manager registerManager(Employee object) {
+	        String id = object.getId();
+       
+  	        System.out.print(" Please enter the manager's name: ");
+  			String name = input.nextLine();
+  		
+  			System.out.print(" Please enter the manager's gross salary: ");
+  			double grossSalary = input.nextDouble();
+  			
+  			System.out.print(" Please enter the manager's academic degree: ");
+  			String academicDegree = input.nextLine();
+  		
+  		Manager newManager = new Manager(id, name, grossSalary, academicDegree);
+  		System.out.println();
+  		System.out.println(newManager.toString());
+  		return newManager;
+  		
+  		
+  	}
+    
+    /*public Director registerDrector() {
+        Director newDirector = new Director(id, name, grossSalary, academicDegree, department)
+    	    return newDirector;
+    }*/
+    
+    public void run() {
+    	    
+        int option = 0;
+        
+        do {
+        	    printMenuOptions();
+        
+		System.out.print(" Type the option number: ");
+		option = input.nextInt();
+		input.nextLine(); 
+		
+		switch(option) {
+		
+		case REGISTER_EMPLOYEE:
+			
+			Employee newEmployee = registerEmployee();
+			this.employees[registeredEmployees] = newEmployee;
+			this.registeredEmployees = this.registeredEmployees + 1;
+			System.out.println();
+			if (newEmployee == null) {
+				System.out.println("Employee not Registered." + "\n");
+			}
+			if 	(newEmployee != null) {
+				System.out.println("Employee Registered." + "\n");
+			}
+			break;
+			
+		case REMOVE_EMPLOYEE:
+			removeEmployee();
+		    break;
+		   
+		case PRINT_EMPLOYEE:
+			printOneEmployee();
+			break;
+			
+		case UPDATE_EMPLOYEE:
+			updateEmployee();
+			Employee newUpdatedEmployee = registerEmployee();
+			this.employees[registeredEmployees] = newUpdatedEmployee;
+			this.registeredEmployees = this.registeredEmployees + 1;
+			System.out.println();
+			break;
+			
+		case QUIT:
+			System.out.println("Thank you for using Company Database!");
+			break;
+			
+		 }
+        }
+        while (option != QUIT);
+    }
+    
+  
+    
+    
+}   
