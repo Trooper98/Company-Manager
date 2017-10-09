@@ -16,7 +16,8 @@ public class ReusaxCorpMain {
 	private static final int TOTAL_GROSS_SALARY = 5;
 	private static final int TOTAL_NET_SALARY = 6;
 	private static final int TOTAL_EMPLOYEES = 7; //done
-	private static final int QUIT = 8;
+	private static final int PROMOTE = 8;
+	private static final int QUIT = 9;
 	
 	Scanner input = new Scanner(System.in);
 	ReusaxCorp company = new ReusaxCorp();
@@ -38,7 +39,8 @@ public class ReusaxCorpMain {
 		System.out.println(" ===   5. Current total gross salary payments.   === ");
 		System.out.println(" ===    6. Current total net salary payments.    === ");
 		System.out.println(" ===             7. Total Employees.             === ");
-		System.out.println(" ===               8.Quit program                === ");
+		System.out.println(" ===                 8.Promote                   === ");
+		System.out.println(" ===               9.Quit program                === ");
 		System.out.println(" =================================================== ");
 	}
 	
@@ -82,6 +84,12 @@ public class ReusaxCorpMain {
 		String id = input.nextLine();
 		Employee foundEmployee = company.searchId(id);
 		
+		System.out.print(" Please enter the employee's name: ");
+		String name = input.nextLine();
+		System.out.print(" Please enter the employee's gross salary: ");
+		double grossSalary = input.nextDouble();
+	
+	
 		if (foundEmployee == null) {
 			
 		registrationOptions();
@@ -92,13 +100,7 @@ public class ReusaxCorpMain {
 		
 		case REGULAR_EMPLOYEE:
 		   {
-			System.out.print(" Please enter the employee's name: ");
-			String name = input.nextLine();
-		
-			System.out.print(" Please enter the employee's gross salary: ");
-			double grossSalary = input.nextDouble();
-		
-		    Employee newEmployee = new Employee(id, name, grossSalary);
+			Employee newEmployee = new Employee(id, name, grossSalary);
 		    company.addEmployee(newEmployee);
 		    //System.out.println();
 		    //System.out.println(newEmployee.toString());
@@ -111,13 +113,6 @@ public class ReusaxCorpMain {
 			final String BACHELOR = "BSc.";
 			final String MASTER = "MSc.";
 			final String PHD = "PhD";
-			
-			System.out.println();
-			System.out.println(" Enter name: ");
-			String name = input.next();
-			
-			System.out.println(" Enter gross salary: ");
-			double salary = input.nextDouble();
 			
 			System.out.println(" Enter academic: ");
 			System.out.println(" 1. Bachelor (BSc.)"
@@ -133,7 +128,7 @@ public class ReusaxCorpMain {
 			}else {
 				System.out.println("You entered an invalid option.");
 			}
-			Employee newEmployee = new Manager(id, name, salary, degree);
+			Employee newEmployee = new Manager(id, name, grossSalary, degree);
 			company.addEmployee(newEmployee);
 		    }
 		    break;
@@ -147,25 +142,16 @@ public class ReusaxCorpMain {
 			 final int TECHNICAL = 2;
 			 final int HUMAN_RESOURCES = 3;
 				
-			 System.out.println();
-			 System.out.println(" Enter name: ");
-			 String name = input.next();
-				
-			 System.out.println();
-			 System.out.println(" Enter gross salary: ");
-			 double salary = input.nextDouble();
-			 System.out.println();
-				
-			 System.out.println();
+		     System.out.println();
 			 System.out.println(" Enter academic: " + "\n 1. Bachelor (BSc.)"
 				+ "\n 2. Master (MSc.)" + "\n 3. PhD.");
 			 String degree = "";
 			 double userInp = input.nextInt();
-			 if(userInp == 1) {
+			 if(userInp == BUSINESS) {
 				degree = BACHELOR;
-			 }else if(userInp == 2) {
+			 }else if(userInp == TECHNICAL) {
 				degree = MASTER;
-			 }else if(userInp == 3) {
+			 }else if(userInp == HUMAN_RESOURCES) {
 				degree = PHD;
 			 }else {
 				 System.out.println();
@@ -189,20 +175,13 @@ public class ReusaxCorpMain {
 				 System.out.println("\n" + "You entered an invalid option." + "\n");
 		     }
 				
-			 Employee newEmployee = new Director(id, name, salary, degree, department);
+			 Employee newEmployee = new Director(id, name, grossSalary, degree, department);
 			 company.addEmployee(newEmployee);
 			  }
 		      break;
 		        
 		case INTERN:
 		    {
-			System.out.println();
-			System.out.println(" Enter name: ");
-			String name = input.next();
-			
-			System.out.println(" Enter gross salary: ");
-			double salary = input.nextDouble();
-			
 			System.out.println(" Enter GPA: ");
 			double userInp = input.nextDouble();
 			System.out.println();
@@ -218,7 +197,7 @@ public class ReusaxCorpMain {
 					gpa = userInp;
 				}while(userInp < 0 && userInp > 10);
 			}
-			Employee newEmployee = new Intern(id, name, salary, gpa);
+			Employee newEmployee = new Intern(id, name, grossSalary, gpa);
 			company.addEmployee(newEmployee);
 		    }
 			break;
@@ -268,12 +247,14 @@ public class ReusaxCorpMain {
 	        System.out.println(" 1. Update Manager. ");
 			System.out.println(" 2. Update Director.");
 			System.out.println(" 3. Update Intern.");
+			System.out.println(" 4. Update employee's name.");
 			int updateType = input.nextInt();
 			input.nextLine(); 
 			
     	        final int MANAGER = 1;
 		    final int DIRECTOR = 2;
 		    final int INTERN = 3;
+		    final int NAME = 4;
 		    
 		switch(updateType) {
 		    case MANAGER:
@@ -311,11 +292,11 @@ public class ReusaxCorpMain {
 		    double userInp = input.nextInt();
 		    String newDepartment = "";
 			
-		    if(userInp == 1) {
+		    if(userInp == BUSINESS) {
 			   newDepartment = "Business department";
-		    }else if(userInp == 2) {
+		    }else if(userInp == TECHNICAL) {
 			   newDepartment = "Technical department";
-		    }else if(userInp == 3) {
+		    }else if(userInp == HUMAN_RESOURCES) {
 			   newDepartment = "Human Resources department";
 		    }else {
 			    System.out.println("\n" + "You entered an invalid option." + "\n");
@@ -345,12 +326,63 @@ public class ReusaxCorpMain {
 		    System.out.println("The intern's new GPA is " + ((Intern) foundEmployee).getGpa());
 		}
 			break;
+		case NAME:
+			System.out.println(" Enter the new name of the employee: ");
+			String newName = input.nextLine();
+			foundEmployee.setName(newName);
+			System.out.println("The employee's new name is " + foundEmployee.getName());
+			break;
 		}
+		}
+		if (foundEmployee == null) {
+			System.out.println("\n" + "The employee with the ID " + employeeID + " not found!");
 		}
     }
     
     public void printEmployeeNum() {
-    	       company.totalEmployees();
+    	       company.employeeSize();
+    }
+    
+    public void promote() {
+    	    System.out.println("\n" + " === Promote === ");
+	    String employeeID = readEmployeeID();
+	    Employee foundEmployee = company.searchId(employeeID);
+	
+	if (foundEmployee != null) {
+		System.out.println(" Choose an option below: ");
+        System.out.println(" 1. Promote to Manager. ");
+		System.out.println(" 2. Promote to Director.");
+		System.out.println(" 3. Promote to ntern.");
+		System.out.println(" 4. Promote to employee.");
+		int promoteType = input.nextInt();
+		input.nextLine(); 
+		
+	    final int PRO_MANAGER = 1;
+	    final int PRO_DIRECTOR = 2;
+	    final int PRO_INTERN = 3;
+	    final int PRO_EMPLOYEE = 4;
+	    
+	    switch(promoteType) {
+	    case PRO_MANAGER:
+	    	    company.promoteToManager();
+	    	break;
+	    	
+	    case PRO_DIRECTOR:
+	    	
+	    	break;
+	    	
+	    case PRO_INTERN:
+	    	
+	    	break;
+	    	
+	    case PRO_EMPLOYEE:
+	    	
+	    	break;
+	    }
+	}
+	if (foundEmployee == null) {
+		System.out.println("\n" + "The employee with the ID " + employeeID + " not found!");
+	}    
     }
     
     public void run() {
@@ -392,6 +424,11 @@ public class ReusaxCorpMain {
 		case TOTAL_EMPLOYEES:
 			printEmployeeNum();
 			break;
+			
+		case PROMOTE:
+			promote();
+			break;
+			
 		case QUIT:
 			System.out.println("\n" + "Thank you for using Company Database!");
 			break;

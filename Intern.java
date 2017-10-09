@@ -41,8 +41,8 @@ public class Intern extends Employee{
 	
 	public String toString() {
 		final String END_OF_LINE = System.lineSeparator();
-		String result ="Intern " + name + " ( ID: " + id + " ) " + END_OF_LINE
-			          +"GPA: " + gpa + END_OF_LINE
+		String result ="Intern " + getName() + " ( ID: " + getId() + " ) " + END_OF_LINE
+			          +"GPA: " + getGpa() + END_OF_LINE
 	                  + "Gross salary is " + getGrossSalary() + " SEK per month."+ END_OF_LINE
 	                  + "Net salary is " + getNetSalary() + " SEK per month." + END_OF_LINE;
 		return result;

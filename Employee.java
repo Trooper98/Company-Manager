@@ -2,8 +2,8 @@ package Try;
 
 public class Employee {
 	
-	protected String id;//change to a "UUID"
-	protected String name;
+	private String id;//change to a "UUID"
+	private String name;
 	private double grossSalary;
 	
 	public Employee(String id, String name, double grossSalary){
@@ -21,6 +21,7 @@ public class Employee {
 	public String getName() {
 		String result = name;
 		return result;
+		//return this.id;
 	}
 
 	public double getGrossSalary() {
@@ -43,8 +44,8 @@ public class Employee {
 	public String toString() {
 		final String END_OF_LINE = System.lineSeparator();
 		
-		String result = name + " ( ID: " + id + " ) " + END_OF_LINE
-		              + "Gross salary is " + grossSalary + " SEK per month." + END_OF_LINE
+		String result = getName() + " ( ID: " + id + " ) " + END_OF_LINE
+		              + "Gross salary is " + getGrossSalary() + " SEK per month." + END_OF_LINE
 		              + "Net salary is " + getNetSalary() + " SEK per month." + END_OF_LINE;
 		return result;	
 	}

@@ -46,8 +46,8 @@ public class Director extends Manager {
 	public String toString() {
 		final String END_OF_LINE = System.lineSeparator();
 		String result ="Director of " + department + END_OF_LINE
-				      + name + " ( ID: " + id + " ) " + END_OF_LINE
-			          +"Academic degree: " + academicDegree + END_OF_LINE
+				      + getName() + " ( ID: " + getId() + " ) " + END_OF_LINE
+			          +"Academic degree: " + getAcademicDegree() + END_OF_LINE
 	                  + "Gross salary is " + getGrossSalary() + " SEK per month."+ END_OF_LINE
 		              + "Net salary is " + getNetSalary() + " SEK per month." + END_OF_LINE;
 		return result;

@@ -10,7 +10,10 @@ public class ReusaxCorp {
 	}//end of method
 	
 	public int employeeSize() {
-		return this.reusaxEmployees.size();
+		int total = reusaxEmployees.size();
+		System.out.println("\n" + "The total number of employees is: " + total + "\n");
+		return total;
+		
 	}
 	
 	public Employee searchId(String id) {
@@ -29,16 +32,22 @@ public class ReusaxCorp {
 		this.reusaxEmployees.remove(object);
 	}
 	
-	public void totalEmployees() {
-         for(int i = 0; i < reusaxEmployees.size(); i++) {
-			if(reusaxEmployees.get(i) != null) {
-				int num = i;
-				//System.out.println("\n" + reusaxEmployees.get(i).toString() + "\n");
-				}
-			System.out.println("The total number of employees is: " + (i + 1));
-		}
+	public void promoteToManager(String id, String academicDegree) {
+		
+		
 	}
-
+    
+	public void promoteToDirector(String id, String academicDegree, String department) {
+		
+	}
+	
+	public void promoteToIntern(String id, String gpa) {
+		
+	}
+	
+	public void promoteToEmployee(String id) {
+		
+	}
 }
 
 	

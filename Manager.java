@@ -47,8 +47,8 @@ public class Manager extends Employee {
 		public String toString() {
 			final String END_OF_LINE = System.lineSeparator();
 			
-			String result ="Manager " + name + " ( ID: " + id + " ) " + END_OF_LINE
-					      +"Academic degree: " + academicDegree + END_OF_LINE
+			String result ="Manager " + getName() + " ( ID: " + getId() + " ) " + END_OF_LINE
+					      +"Academic degree: " + getAcademicDegree() + END_OF_LINE
 			              + "Gross salary is " + getGrossSalary() + " SEK per month."+ END_OF_LINE;
 			return result;	
 		}
