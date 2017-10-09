@@ -1,4 +1,4 @@
-package a3ReusaxCorp;
+package Try;
 
 public class Director extends Manager {
 	
@@ -8,7 +8,7 @@ public class Director extends Manager {
 	private final double TAX_BRACKET1 = 30000;
 	private final double TAX_BRACKET2 = 50000;
 	
-	public Director(String id, String name, double grossSalary, String academicDegree, String department){
+	Director(String id, String name, double grossSalary, String academicDegree, String department){
 		super(id, name, grossSalary, academicDegree);
 		this.department = department;
 	}
@@ -43,4 +43,13 @@ public class Director extends Manager {
 		return afterTax;
 	}
 
+	public String toString() {
+		final String END_OF_LINE = System.lineSeparator();
+		String result ="Director of " + department + END_OF_LINE
+				      + name + " ( ID: " + id + " ) " + END_OF_LINE
+			          +"Academic degree: " + academicDegree + END_OF_LINE
+	                  + "Gross salary is " + getGrossSalary() + " SEK per month."+ END_OF_LINE
+		              + "Net salary is " + getNetSalary() + " SEK per month." + END_OF_LINE;
+		return result;
+	}
 }//end of director class

@@ -1,9 +1,9 @@
-package a3ReusaxCorp;
+package Try;
 
 public class Employee {
-
-	private String id;//change to a "UUID"
-	private String name;
+	
+	protected String id;//change to a "UUID"
+	protected String name;
 	private double grossSalary;
 	
 	public Employee(String id, String name, double grossSalary){
@@ -12,16 +12,20 @@ public class Employee {
 		this.grossSalary = grossSalary;
 	}//end of constructor
 
+	
 	public String getId() {
-		return id;
+		String result = id;
+		return result;
 	}
 
 	public String getName() {
-		return name;
+		String result = name;
+		return result;
 	}
 
 	public double getGrossSalary() {
-		return grossSalary;
+		double result = grossSalary;
+		return result;
 	}
 
 	public double getNetSalary() {
@@ -36,4 +40,12 @@ public class Employee {
 		this.grossSalary = grossSalary;
 	}
 	
-}//end of employee class
+	public String toString() {
+		final String END_OF_LINE = System.lineSeparator();
+		
+		String result = name + " ( ID: " + id + " ) " + END_OF_LINE
+		              + "Gross salary is " + grossSalary + " SEK per month." + END_OF_LINE
+		              + "Net salary is " + getNetSalary() + " SEK per month." + END_OF_LINE;
+		return result;	
+	}
+}

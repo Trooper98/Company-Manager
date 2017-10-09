@@ -1,4 +1,4 @@
-package a3ReusaxCorp;
+package Try;
 
 public class Intern extends Employee{
 
@@ -37,5 +37,14 @@ public class Intern extends Employee{
 	@Override
 	public double getNetSalary() {
 		return getGrossSalary();
+	}
+	
+	public String toString() {
+		final String END_OF_LINE = System.lineSeparator();
+		String result ="Intern " + name + " ( ID: " + id + " ) " + END_OF_LINE
+			          +"GPA: " + gpa + END_OF_LINE
+	                  + "Gross salary is " + getGrossSalary() + " SEK per month."+ END_OF_LINE
+	                  + "Net salary is " + getNetSalary() + " SEK per month." + END_OF_LINE;
+		return result;
 	}
 }//end of intern class
