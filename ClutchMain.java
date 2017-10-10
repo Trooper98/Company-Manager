@@ -5,6 +5,7 @@ import java.util.*;
 public class ClutchMain {
 
 	private Scanner input = new Scanner(System.in);
+	private Scanner nameInput = new Scanner(System.in);
 	ReusaxCorp company = new ReusaxCorp();
 
 	public void printOptions() {
@@ -47,9 +48,9 @@ public class ClutchMain {
 		System.out.println(" Enter new Id: ");
 		String id = input.next();
 
-		if (company.retreiveEmp(id) != null) {
+		if (company.retreiveEmployeeType(id) == null) {//type
 			System.out.println(" Enter name: ");
-			String name = input.next();
+			String name = nameInput.nextLine();
 
 			System.out.println(" Enter gross salary: ");
 			double salary = input.nextDouble();
@@ -181,16 +182,16 @@ public class ClutchMain {
 		System.out.println(" === Remove Resaux Corp. employees === ");
 		System.out.println();
 		System.out.println(" Enter employee I.D: ");
-		String id = input.nextLine();
+		String id = input.next();
 
-		if (company.retreiveEmp(id) == null) {
+		if (company.retreiveEmployeeBoolean(id) == true) {//boolean
+			company.removeEmployee(company.retreiveEmployeeType(id));//employee type
+			System.out.println(id + " was removed from Reusax Corp.");
+			
+		} else {
 			System.out.println();
 			System.out.println(id + " was not found.");
 			System.out.println();
-
-		} else {
-			company.removeEmployee(company.retreiveEmp(id));
-			System.out.println(id + " was removed from Reusax Corp.");
 		}
 	}
 
@@ -200,15 +201,12 @@ public class ClutchMain {
 		System.out.println(" === Search Resaux Corp. employees === ");
 		System.out.println();
 		System.out.println(" Enter employee I.D: ");
-		String id = input.nextLine();
-		input.nextLine();
-
-		if (company.retreiveEmp(id) == null) {
-			System.out.println();
-			System.out.println(id + " was not found.");
-			System.out.println();
-		} else {
-			System.out.println(company.toString());
+		String identity = input.next();
+		
+		if(company.retreiveEmployeeType(identity) != null) {
+			System.out.println(company.retreiveEmployeeType(identity).toString());
+		}else {
+			System.out.println("Id \""+identity+"\" is cannot be found.");
 		}
 
 	}// end of retrieve
@@ -216,7 +214,7 @@ public class ClutchMain {
 	// 4) update employee
 	public void updateName(Employee employee) {
 		System.out.println(" Enter new name: ");
-		String newName = input.nextLine();
+		String newName = nameInput.nextLine();
 		employee.setName(newName);
 		System.out.println("Name has been changed to" + employee.getName());
 		System.out.println();
@@ -286,8 +284,8 @@ public class ClutchMain {
 	public void updateEmployee() {
 		System.out.println("\n" + " ====== Update Employee ===== ");
 		System.out.println(" Enter employee id: ");
-		String id = input.nextLine();
-		Employee foundEmployee = company.retreiveEmp(id);
+		String id = input.next();
+		Employee foundEmployee = company.retreiveEmployeeType(id);//employee type
 
 		if (foundEmployee != null) {
 			final int NAME = 1;
@@ -403,8 +401,8 @@ public class ClutchMain {
 	public void changePosition() {
 		System.out.println("\n ====== Update Employee ===== ");
 		System.out.println(" Enter employee id: ");
-		String id = input.nextLine();
-		Employee foundEmployee = company.retreiveEmp(id);
+		String id = input.next();
+		Employee foundEmployee = company.retreiveEmployeeType(id);//employee type
 
 		if (foundEmployee != null) {
 			final int PROMOTE = 1;
@@ -495,6 +493,36 @@ public class ClutchMain {
 		}
 
 	}
+	
+	public void demote(Employee employee) {
+		String id = employee.getId();
+		String name = employee.getName();
+		double grossSalary = employee.getGrossSalary();
+		String academicDegree = ((Manager) employee).getAcademicDegree();
+		if (employee instanceof Manager) {
+			company.removeEmployee(employee);
+			Employee newEmployee = new RegularEmployee(id, name, grossSalary);
+			company.addEmployee(newEmployee);
+			System.out.println("The manager is demoted to regular employee.");
+		}else if (employee instanceof Director) {
+			company.removeEmployee(employee);
+			Employee newEmployee = new Manager(id, name, grossSalary, academicDegree);
+			company.addEmployee(newEmployee);
+			System.out.println("The director is demoted to manager.");
+		}else if ( employee instanceof RegularEmployee) {
+			System.out.println("Enter the GPA of the new intern: ");
+			double newGpa = input.nextDouble();
+			company.removeEmployee(employee);
+			Employee newEmployee = new Intern(id, name, grossSalary, newGpa);
+			company.addEmployee(newEmployee);
+			System.out.println("The regular employee is demoted to intern.");
+			
+		}else {
+			System.out.println(
+					"Employe of Id " + employee.getId() + " cannot be promoted because it's at lowest position.");
+		}
+		
+    }
 
 	private void run() {
 
@@ -511,6 +539,7 @@ public class ClutchMain {
 
 		int option;
 		do {
+			company.sortEmployees();
 			printOptions();
 			option = input.nextInt();
 
@@ -542,6 +571,8 @@ public class ClutchMain {
 			case CHANGE_POSITION:
 				changePosition();
 				break;
+			case 98:
+				company.printAll();
 			}// end of switch
 		} while (option != QUIT);
 	}

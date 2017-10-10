@@ -1,10 +1,10 @@
 package a3Clutch;
-import java.util.ArrayList;
+import java.util.*;
 
 public class ReusaxCorp {
 
 private  ArrayList<Employee> reusaxEmployees = new ArrayList<Employee>();
-	
+
 	public void addEmployee(Employee object) {
 		this.reusaxEmployees.add(object);
 	}//end of method
@@ -13,13 +13,25 @@ private  ArrayList<Employee> reusaxEmployees = new ArrayList<Employee>();
 		return this.reusaxEmployees.size();
 	}
 	
-	public Employee retreiveEmp(String id) {
-		Employee foundEmployee = null;
+	public boolean retreiveEmployeeBoolean(String id) {
+		boolean foundEmployee = false;
 		for(Employee i: reusaxEmployees) {
-			if(i.getId().equals(id)) {
-				foundEmployee = i;
+			Employee x = i;
+			if(x.getId().equals(id)) {
+				foundEmployee = true;
 				break;
 			}
+		}
+		return foundEmployee;
+	}
+	
+	public Employee retreiveEmployeeType(String id) {
+		Employee foundEmployee = null;
+		for(Employee employee: reusaxEmployees) {
+			if(employee.getId().equals(id)) {
+				foundEmployee = employee;
+			}
+			break;
 		}
 		return foundEmployee;
 	}
@@ -71,4 +83,17 @@ private  ArrayList<Employee> reusaxEmployees = new ArrayList<Employee>();
 			}//end of statement
 		}//end of loop
 	}
+	
+	public void printAll() {
+		for(Employee employee: reusaxEmployees) {
+			System.out.println(employee.toString());
+		}
+	}
+	
+	public void sortEmployees() {
+		Collections.sort(reusaxEmployees);
+	}
+	
+	
 }
+ 
