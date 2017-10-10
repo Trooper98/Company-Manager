@@ -1,4 +1,4 @@
-package a3Clutch;
+package final_edition;
 
 import java.util.*;
 
@@ -216,7 +216,7 @@ public class ClutchMain {
 		System.out.println(" Enter new name: ");
 		String newName = nameInput.nextLine();
 		employee.setName(newName);
-		System.out.println("Name has been changed to" + employee.getName());
+		System.out.println("Name has been changed to " + employee.getName());
 		System.out.println();
 	}
 
@@ -285,6 +285,7 @@ public class ClutchMain {
 		System.out.println("\n" + " ====== Update Employee ===== ");
 		System.out.println(" Enter employee id: ");
 		String id = input.next();
+		//input.next();
 		Employee foundEmployee = company.retreiveEmployeeType(id);//employee type
 
 		if (foundEmployee != null) {
@@ -351,7 +352,7 @@ public class ClutchMain {
 					updateGpa((Intern) foundEmployee);
 				}
 
-			} else if (foundEmployee instanceof Employee) {
+			} else if (foundEmployee instanceof RegularEmployee) {
 				System.out.println(" ====== Update Employee =====");
 				System.out.println(" = Choose an option below:  =");
 				System.out.println(" = 1. Name                  =");
@@ -367,7 +368,7 @@ public class ClutchMain {
 			}
 
 		} else {
-			System.out.println("An employee of ID" + id + "is not registered in the system.");
+			System.out.println("An employee of ID" + id + " is not registered in the system.");
 		} // end of if statement
 	}// end of class
 
@@ -416,9 +417,9 @@ public class ClutchMain {
 			System.out.println(" ==============================\n");
 			int userInp = input.nextInt();
 			if (userInp == PROMOTE) {
-
+                promote(foundEmployee);
 			} else if (userInp == DEMOTE) {
-
+                demote(foundEmployee);
 			} else {
 				System.out.println(" You entered an invalid option.");
 			}
